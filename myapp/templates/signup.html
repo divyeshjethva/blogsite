@@ -1,0 +1,23 @@
+{% load static %}
+<link rel="stylesheet" href="{% static "css/signup.css" %}">
+
+{% if msg %}
+<div class="alert alert-danger" role="alert">
+  {{msg}}
+</div>
+{% endif %}
+
+  <div class="signup-card">
+    <h2>Create Account</h2>
+    <form action="{% url "signup" %}" method="POST">
+      {% csrf_token %}
+      <input type="text" class="form-control" name="name" placeholder="Full Name" >
+      <input type="email" class="form-control" name="email" placeholder="Email Address" >
+      <input type="password" class="form-control" name="password" placeholder="Password">
+      <input type="password" class="form-control" name="cpassword" placeholder="Confirm Password">
+      <input type="submit" value="submit" class="btn btn-signup mt-2">
+      <div class="login-link">
+        Already have an account? <a href="{% url 'login' %}">Login</a>
+      </div>
+    </form>
+  </div>

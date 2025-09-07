@@ -1,0 +1,167 @@
+{% extends "layout.html" %} {% load static %} {% block title %}home{% endblock%} {% block content %}
+<link rel="stylesheet" href="{% static "css/style.css"
+%}">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+/>
+
+<style>
+  .wishlist-btn .bi-heart-fill {
+    color: #e91e63; /* Pink shade */
+  }
+</style>
+
+
+<div class="container my-4">
+  <div class="row g-4 justify-content-center">
+
+    {% for i in blog %}
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 position-relative">
+        <!-- Wishlist Heart (Top Right) -->
+        <a href="{% url "wishlist" %}">
+          <button class="btn btn-light position-absolute top-0 end-0 m-2 wishlist-btn">
+            <i class="bi bi-heart fs-5"></i>
+          </button>
+        </a>
+
+        <img
+          src="{{i.image.url}}"
+          class="card-img-top"
+          alt="Blog"
+        />
+
+        <div class="card-body">
+          <h5 class="card-title mb-1">{{i.name}}</h5>
+          <small class="text-muted d-block mb-2">📅 {{ i.ttime|date:"D d M Y" }}</small>
+          <p class="card-text">{{i.desc}}</p>
+        </div>
+
+        <div
+          class="card-footer d-flex justify-content-between align-items-center bg-white border-0"
+        >
+          <div>
+            <!-- Like -->
+            <button class="btn btn-sm like-btn me-2">
+              <i class="bi bi-hand-thumbs-up"></i> <span>12</span>
+            </button>
+
+            <!-- Dislike -->
+            <button class="btn btn-sm dislike-btn me-2">
+              <i class="bi bi-hand-thumbs-down"></i> <span>2</span>
+            </button>
+
+            <!-- Comment -->
+            <button class="btn btn-sm text-dark">
+              <i class="bi bi-chat-dots"></i> 5
+            </button>
+          </div>
+
+          <a href="{% url "blogdetails" pk=i.pk %}" class="btn btn-primary btn-sm px-4">View</a>
+        </div>
+      </div>
+    </div>
+
+    {% endfor %}
+
+    <!-- Toggle Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".wishlist-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            let icon = this.querySelector("i");
+            if (icon.classList.contains("bi-heart")) {
+              icon.classList.replace("bi-heart", "bi-heart-fill");
+            } else {
+              icon.classList.replace("bi-heart-fill", "bi-heart");
+            }
+          });
+        });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Like / Dislike mutual toggle
+        document.querySelectorAll(".card").forEach((card) => {
+          let likeBtn = card.querySelector(".like-btn");
+          let dislikeBtn = card.querySelector(".dislike-btn");
+
+          likeBtn.addEventListener("click", function () {
+            let icon = this.querySelector("i");
+            let dislikeIcon = dislikeBtn.querySelector("i");
+
+            if (icon.classList.contains("bi-hand-thumbs-up")) {
+              // Select Like
+              icon.classList.replace(
+                "bi-hand-thumbs-up",
+                "bi-hand-thumbs-up-fill"
+              );
+              this.classList.add("text-primary");
+
+              // Unselect Dislike if active
+              dislikeIcon.classList.replace(
+                "bi-hand-thumbs-down-fill",
+                "bi-hand-thumbs-down"
+              );
+              dislikeBtn.classList.remove("text-danger");
+            } else {
+              // Unselect Like
+              icon.classList.replace(
+                "bi-hand-thumbs-up-fill",
+                "bi-hand-thumbs-up"
+              );
+              this.classList.remove("text-primary");
+            }
+          });
+
+          dislikeBtn.addEventListener("click", function () {
+            let icon = this.querySelector("i");
+            let likeIcon = likeBtn.querySelector("i");
+
+            if (icon.classList.contains("bi-hand-thumbs-down")) {
+              // Select Dislike
+              icon.classList.replace(
+                "bi-hand-thumbs-down",
+                "bi-hand-thumbs-down-fill"
+              );
+              this.classList.add("text-danger");
+
+              // Unselect Like if active
+              likeIcon.classList.replace(
+                "bi-hand-thumbs-up-fill",
+                "bi-hand-thumbs-up"
+              );
+              likeBtn.classList.remove("text-primary");
+            } else {
+              // Unselect Dislike
+              icon.classList.replace(
+                "bi-hand-thumbs-down-fill",
+                "bi-hand-thumbs-down"
+              );
+              this.classList.remove("text-danger");
+            }
+          });
+        });
+
+        // Wishlist heart toggle
+        document.querySelectorAll(".wishlist-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            let icon = this.querySelector("i");
+            if (icon.classList.contains("bi-heart")) {
+              icon.classList.replace("bi-heart", "bi-heart-fill");
+              icon.classList.add("text-danger");
+            } else {
+              icon.classList.replace("bi-heart-fill", "bi-heart");
+              icon.classList.remove("text-danger");
+            }
+          });
+        });
+      });
+    </script>
+  </div>
+</div>
+
+
+
+{% endblock %}
