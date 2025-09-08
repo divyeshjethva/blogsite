@@ -26,3 +26,9 @@ class CreateBlog(models.Model):
     
     def __str__(self):
         return f"{self.name}  |  {self.user}"
+    
+class Wishlist(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    blog = models.ForeignKey(CreateBlog,on_delete=models.CASCADE)
+    ttime = models.DateTimeField(default=timezone.now())
+    

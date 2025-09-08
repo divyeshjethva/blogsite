@@ -31,5 +31,7 @@ urlpatterns = [
     path('editblog/<int:pk>', views.editblog, name='editblog'),
     path('deleteblog/<int:pk>', views.deleteblog, name='deleteblog'),
     path('blogdetails/<int:pk>', views.blogdetails, name='blogdetails'),
+    path('addwish/<int:pk>', views.addwish, name='addwish'),
+    path('deletewishlist/<int:pk>', views.deletewishlist, name='deletewishlist'),
     path('wishlist/', views.wishlist, name='wishlist'),
 ]

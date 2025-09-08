@@ -135,6 +135,27 @@ def blogdetails(request,pk):
         return render(request,'blogdetails.html',{'blog':blog,'user':user})
     except:
         return redirect('login')
+    
+def addwish(request,pk):
+    try:
+        user = User.objects.get(email=request.session['email'])
+        blog = CreateBlog.objects.get(pk=pk)
+        Wishlist.objects.create(
+            user = user,
+            blog = blog
+        )
+        return redirect('wishlist')
+    except Exception as e:
+        print("===================================",e)
+        return redirect('index')
+    
 
+def deletewishlist(request,pk):
+    wish = Wishlist.objects.get(pk=pk)
+    wish.delete()
+    return redirect('wishlist')
+    
 def wishlist(request):
-    return render(request,'wishlist.html')
+    user = User.objects.get(email=request.session['email'])
+    wish = Wishlist.objects.filter(user=user)
+    return render(request,'wishlist.html',{'wish':wish})

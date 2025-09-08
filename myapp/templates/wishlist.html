@@ -1,11 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>wishlist</h1>
-</body>
-</html>
+{% extends "layout.html" %} 
+{% load static %} 
+{% block title %}Wishlist{% endblock%} 
+{% block content %}
+<link rel="stylesheet" href="{% static "css/style.css"%}">
+
+
+
+<div class="container my-4">
+  <div class="d-flex flex-column gap-3">
+
+    {% for i in wish %}
+    <div class="card shadow-sm p-2">
+
+      <div class="row g-0">
+        <!-- Left side image -->
+        <div class="col-md-4">
+          <img src="{{i.blog.image.url}}" class="img-fluid rounded-start" alt="Blog">
+        </div>
+
+        <!-- Right side details -->
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{i.blog.name}}</h5>
+            <small class="text-muted d-block mb-2">
+              📅 {{ i.blog.ttime|date:"D d M Y" }}
+            </small>
+            <p class="card-text">{{i.blog.desc}}</p>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+              <!-- View Button -->
+              <a href="{% url 'blogdetails' pk=i.blog.pk %}" 
+                 class="btn btn-primary btn-sm px-4">View</a>
+
+              <!-- Delete Button -->
+              <a href="{% url 'deletewishlist' pk=i.pk %}" 
+                 class="btn btn-danger btn-sm px-4"
+                 onclick="return confirm('Are you sure you want to remove this from wishlist?');">
+                 Delete
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}
