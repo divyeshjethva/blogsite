@@ -32,3 +32,12 @@ class Wishlist(models.Model):
     blog = models.ForeignKey(CreateBlog,on_delete=models.CASCADE)
     ttime = models.DateTimeField(default=timezone.now())
     
+class Likeuser(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    blog = models.ForeignKey(CreateBlog,on_delete=models.CASCADE)
+    
+    
+class DisLikeuser(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    blog = models.ForeignKey(CreateBlog,on_delete=models.CASCADE)
+    

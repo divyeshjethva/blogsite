@@ -6,3 +6,5 @@ from .models import *
 admin.site.register(User)
 admin.site.register(CreateBlog)
 admin.site.register(Wishlist)
+admin.site.register(Likeuser)
+admin.site.register(DisLikeuser)

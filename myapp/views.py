@@ -147,7 +147,7 @@ def addwish(request,pk):
         return redirect('wishlist')
     except Exception as e:
         print("===================================",e)
-        return redirect('index')
+        return redirect('login')
     
 
 def deletewishlist(request,pk):
@@ -159,3 +159,23 @@ def wishlist(request):
     user = User.objects.get(email=request.session['email'])
     wish = Wishlist.objects.filter(user=user)
     return render(request,'wishlist.html',{'wish':wish})
+
+def addlike(request,pk):
+    user = User.objects.get(email=request.session['email'])
+    blog = CreateBlog.objects.get(pk=pk)
+    
+    Likeuser.objects.create(
+        user=user,
+        blog=blog
+    )
+    return redirect('index')
+
+def adddislike(request,pk):
+    user = User.objects.get(email=request.session['email'])
+    blog = CreateBlog.objects.get(pk=pk)
+    
+    DisLikeuser.objects.create(
+        user=user,
+        blog=blog
+    )
+    return redirect('index')

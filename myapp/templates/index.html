@@ -37,6 +37,7 @@
           <h5 class="card-title mb-1">{{i.name}}</h5>
           <small class="text-muted d-block mb-2">📅 {{ i.ttime|date:"D d M Y" }}</small>
           <p class="card-text">{{i.desc}}</p>
+          <p><strong>Wishlist Count:</strong> {{ i.wishlist_set.count }}</p>
         </div>
 
         <div
@@ -44,14 +45,19 @@
         >
           <div>
             <!-- Like -->
-            <button class="btn btn-sm like-btn me-2">
-              <i class="bi bi-hand-thumbs-up"></i> <span>12</span>
-            </button>
+            <a href="{% url "addlike" pk=i.pk %}">
+              <button class="btn btn-sm like-btn me-2">
+                <i class="bi bi-hand-thumbs-up"></i> <span>12</span>
+              </button>
+            </a>
 
             <!-- Dislike -->
-            <button class="btn btn-sm dislike-btn me-2">
-              <i class="bi bi-hand-thumbs-down"></i> <span>2</span>
-            </button>
+            <a href="{% url "adddislike" pk=i.pk %}">
+              <button class="btn btn-sm dislike-btn me-2">
+                <i class="bi bi-hand-thumbs-down"></i> <span>2</span>
+              </button>
+            </a>
+
 
             <!-- Comment -->
             <button class="btn btn-sm text-dark">

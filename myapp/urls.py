@@ -34,4 +34,6 @@ urlpatterns = [
     path('addwish/<int:pk>', views.addwish, name='addwish'),
     path('deletewishlist/<int:pk>', views.deletewishlist, name='deletewishlist'),
     path('wishlist/', views.wishlist, name='wishlist'),
+    path('addlike/<int:pk>', views.addlike, name='addlike'),
+    path('adddislike/<int:pk>', views.adddislike, name='adddislike'),
 ]
