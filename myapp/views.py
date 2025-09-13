@@ -168,7 +168,12 @@ def addlike(request,pk):
         user=user,
         blog=blog
     )
+    blog.like+=1
+    blog.save()
+    a = blog.like
+    print("==========================",a)
     return redirect('index')
+
 
 def adddislike(request,pk):
     user = User.objects.get(email=request.session['email'])
@@ -178,4 +183,8 @@ def adddislike(request,pk):
         user=user,
         blog=blog
     )
+    blog.dislike+=1
+    blog.save()
+    a = blog.dislike
+    print("==========================",a)
     return redirect('index')

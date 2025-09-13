@@ -24,6 +24,8 @@
         <a href="{% url "addwish" pk=i.pk %}">
           <button class="btn btn-light position-absolute top-0 end-0 m-2 wishlist-btn">
             <i class="bi bi-heart fs-5"></i>
+            <p>{{ i.wishlist_set.count }}</p>
+
           </button>
         </a>
 
@@ -37,7 +39,6 @@
           <h5 class="card-title mb-1">{{i.name}}</h5>
           <small class="text-muted d-block mb-2">📅 {{ i.ttime|date:"D d M Y" }}</small>
           <p class="card-text">{{i.desc}}</p>
-          <p><strong>Wishlist Count:</strong> {{ i.wishlist_set.count }}</p>
         </div>
 
         <div
@@ -47,22 +48,22 @@
             <!-- Like -->
             <a href="{% url "addlike" pk=i.pk %}">
               <button class="btn btn-sm like-btn me-2">
-                <i class="bi bi-hand-thumbs-up"></i> <span>12</span>
+                <i class="bi bi-hand-thumbs-up"></i> <span>{{i.like}}</span>
               </button>
             </a>
 
             <!-- Dislike -->
             <a href="{% url "adddislike" pk=i.pk %}">
               <button class="btn btn-sm dislike-btn me-2">
-                <i class="bi bi-hand-thumbs-down"></i> <span>2</span>
+                <i class="bi bi-hand-thumbs-down"></i> <span>{{i.dislike}}</span>
               </button>
             </a>
 
 
-            <!-- Comment -->
+            <!-- Comment
             <button class="btn btn-sm text-dark">
               <i class="bi bi-chat-dots"></i> 5
-            </button>
+            </button> -->
           </div>
 
           <a href="{% url "blogdetails" pk=i.pk %}" class="btn btn-primary btn-sm px-4">View</a>
