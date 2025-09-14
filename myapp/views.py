@@ -171,7 +171,7 @@ def addlike(request,pk):
     blog.like+=1
     blog.save()
     a = blog.like
-    print("==========================",a)
+    print("==========================", a)
     return redirect('index')
 
 
